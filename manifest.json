@@ -1,7 +1,7 @@
 {
     "name":"घड्याळ",
     "short_name":"घड्याळ",
-    "start_url":".",
+    "start_url":"https://prathampatankar.github.io/ghadyal/",
     "theme_color": "#FF6332",
     "display":"standalone",
     "description":"A Marathi Clock",
