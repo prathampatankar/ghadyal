@@ -1,0 +1,15 @@
+{
+    "name":"घड्याळ",
+    "short_name":"घड्याळ",
+    "start_url":".",
+    "theme_color": "#FF6332",
+    "display":"standalone",
+    "description":"A Marathi Clock",
+    "icons":[
+    {
+    "src":"ghadyallogo.svg",
+    "sizes":"512x512",
+    "type":"image/png"
+    }
+  ]
+}

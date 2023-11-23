@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>घड्याळ</title>
+    <link rel="icon" type="image/x-icon" href="ghadyallogo.svg">
+    <link rel=manifest href=manifest.json>
+    <style>
+        body {
+            margin: 0;
+            padding: none;
+            overflow-y: hidden;
+            line-height: -50px;
+        }
+        .vel {
+            height: 50vh;
+            width: 100vw;
+            background-color: #FF6332;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 150px;
+            line-height: 1;
+            gap: -16px
+        }
+        .calender {
+            height: 50vh;
+            width: 100vw;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        #mahina, #vaar {
+            font-size: 36px;
+            line-height: 1;
+        }
+        #tarikh {
+            font-size: 150px;
+            line-height: 1;
+        }
+        @media (orientation: landscape) {
+        body {
+            margin: 0;
+            padding: none;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: row;
+        }
+        .vel {
+            height: 100vh;
+            width: 50vw;
+        }
+        .calender {
+            height: 100vh;
+            width: 50vw;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="vel">
+        <div id="taas"></div>
+        <div id="minutes"></div>
+    </div>
+    <div class="calender">
+        <div id="mahina"></div>
+        <div id="tarikh"></div>
+        <div id="vaar"></div>
+    </div>
+    <script>
+        setInterval(()=>{
+        let currentTime = new Date()
+        let taas = (currentTime.getHours())
+        if(taas>12){
+            taas = taas - 12;
+        }
+        let taas2 = (taas).toLocaleString("hi-u-nu-deva")
+        let minutes = ((currentTime.getMinutes())).toLocaleString("hi-u-nu-deva")
+        let mahina = (currentTime.getMonth())
+        let tarikh = ((currentTime.getDate())).toLocaleString("hi-u-nu-deva")
+        let vaar = (currentTime.getDay())
+        if(mahina == 0){
+            document.getElementById("mahina").innerHTML = "जानेवारी";
+        }else if(mahina == 1){
+            document.getElementById("mahina").innerHTML = "फेब्रुवारी";
+        }else if(mahina == 2){
+            document.getElementById("mahina").innerHTML = "मार्च";
+        }else if(mahina == 3){
+            document.getElementById("mahina").innerHTML = "एप्रिल";
+        }else if(mahina == 4){
+            document.getElementById("mahina").innerHTML = "मे";
+        }else if(mahina == 5){
+            document.getElementById("mahina").innerHTML = "जून";
+        }else if(mahina == 6){
+            document.getElementById("mahina").innerHTML = "जुलै";
+        }else if(mahina == 7){
+            document.getElementById("mahina").innerHTML = "ऑगस्ट";
+        }else if(mahina == 8){
+            document.getElementById("mahina").innerHTML = "सप्टेंबर";
+        }else if(mahina == 9){
+            document.getElementById("mahina").innerHTML = "ऑक्टोबर";
+        }else if(mahina == 10){
+            document.getElementById("mahina").innerHTML = "नोव्हेंबर";
+        }else if(mahina == 11){
+            document.getElementById("mahina").innerHTML = "डिसेंबर";
+        }
+        if(vaar == 0){
+            document.getElementById("vaar").innerHTML = "रविवार";
+        }else if(vaar == 1){
+            document.getElementById("vaar").innerHTML = "सोमवार";
+        }else if(vaar == 2){
+            document.getElementById("vaar").innerHTML = "मंगळवार";
+        }else if(vaar == 3){
+            document.getElementById("vaar").innerHTML = "बुधवार";
+        }else if(vaar == 4){
+            document.getElementById("vaar").innerHTML = "गुरुवार";
+        }else if(vaar == 5){
+            document.getElementById("vaar").innerHTML = "शुक्रवार";
+        }else if(vaar == 6){
+            document.getElementById("vaar").innerHTML = "शनिवार";
+        }
+        document.getElementById("taas").innerHTML = taas2;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("tarikh").innerHTML = tarikh;
+        console.log(taas, minutes, mahina, tarikh, vaar)
+        },1000)
+
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker
+            // give complete path of sw.js file
+            .register('http://127.0.0.1:5500/service-worker.js')
+            .then(() => console.log('Service Worker Registered'))
+        }
+
+        let deferredPromt;
+        const addBtn = document.querySelector('.installApp')
+        addBtn.style.display = 'none'
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPromt = e;
+            addBtn.style.display = 'block'
+
+            addBtn.addEventListener('click', () => {
+                addBtn.style.display = 'none';
+                deferredPromt.prompt();
+                deferredPromt.userChoice.then((choiceResult) => {
+                    if(choiceResult.outcome === 'accepted'){
+                        console.log('App is installing');
+                    }else{
+                        console.log('User dismissed the prompt');
+                    }
+                    deferredPromt = null;
+                })
+            })
+        })
+    </script>
+</body>
+</html>
