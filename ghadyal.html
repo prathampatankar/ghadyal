@@ -8,15 +8,15 @@
     <link rel=manifest href=manifest.json>
     <style>
         body {
-            margin: 0;
+            margin: 4px;
             padding: none;
             overflow-y: hidden;
-            line-height: -50px;
         }
         .vel {
             height: 50vh;
             width: 100vw;
-            background-color: #FF6332;
+            background-color: black;
+            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,6 +44,15 @@
             font-size: 150px;
             line-height: 1;
         }
+        .divider {
+            height: 4px;
+            background-color: white;
+        }
+        .borderup, .borderdown, .borderleft, .borderright{
+            position: fixed;
+            z-index: 20;
+               
+        }
         @media (orientation: landscape) {
         body {
             margin: 0;
@@ -64,10 +73,15 @@
     </style>
 </head>
 <body>
+    <div class="borderup"></div>
+    <div class="borderdown"></div>
+    <div class="borderleft"></div>
+    <div class="borderright"></div>
     <div class="vel">
         <div id="taas"></div>
         <div id="minutes"></div>
     </div>
+    <div class="divider"></div>
     <div class="calender">
         <div id="mahina"></div>
         <div id="tarikh"></div>
