@@ -8,26 +8,30 @@
     <link rel=manifest href=manifest.json>
     <style>
         body {
-            margin: 4px;
-            padding: none;
+            margin: 0;
+            padding: 0;
             overflow-y: hidden;
+            background-color: orangered;
         }
         .vel {
-            height: 50vh;
-            width: 100vw;
+            width: auto;
             background-color: black;
             color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 150px;
+            font-size: 1500%;
+            container-name: vel;
             line-height: 1;
-            gap: -16px
+            gap: 16px;
+            border-radius: 50px;
+            margin: 8px;
+            margin-bottom: 0;
+            flex: 1 0 0;
         }
         .calender {
-            height: 50vh;
-            width: 100vw;
+            width: auto;
             background-color: black;
             color: white;
             display: flex;
@@ -35,13 +39,17 @@
             justify-content: center;
             align-items: center;
             gap: 16px;
+            border-radius: 50px;
+            margin: 8px;
+            margin-top: 0;
+            flex: 1 0 0;
         }
         #mahina, #vaar {
-            font-size: 36px;
+            font-size: 4rem;
             line-height: 1;
         }
         #tarikh {
-            font-size: 150px;
+            font-size: 1500%;
             line-height: 1;
         }
         .divider {
@@ -53,39 +61,57 @@
             z-index: 20;
                
         }
+        .container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+            
+        }
         @media (orientation: landscape) {
-        body {
-            margin: 0;
-            padding: none;
-            overflow-y: hidden;
+        .container {
+            height: 100vh;
+            width: 100vw;
             display: flex;
             flex-direction: row;
+            justify-content: center;
+            align-items: c;
+            gap: 8px;
         }
         .vel {
-            height: 100vh;
-            width: 50vw;
+            margin: 8px;
+            margin-right: 0;
+            font-size: 1100%;
         }
         .calender {
-            height: 100vh;
-            width: 50vw;
+            margin: 8px;
+            margin-left: 0;
+        }
+        #tarikh {
+            font-size: 1100%;
+            line-height: 1;
         }
       }
     </style>
 </head>
 <body>
-    <div class="borderup"></div>
+    <!-- <div class="borderup"></div>
     <div class="borderdown"></div>
     <div class="borderleft"></div>
-    <div class="borderright"></div>
-    <div class="vel">
-        <div id="taas"></div>
-        <div id="minutes"></div>
-    </div>
-    <div class="divider"></div>
-    <div class="calender">
-        <div id="mahina"></div>
-        <div id="tarikh"></div>
-        <div id="vaar"></div>
+    <div class="borderright"></div> -->
+    <div class="container">
+        <div class="vel">
+            <div id="taas"></div>
+            <div id="minutes"></div>
+        </div>
+        <!-- <div class="divider"></div> -->
+        <div class="calender">
+            <div id="mahina"></div>
+            <div id="tarikh"></div>
+            <div id="vaar"></div>
+        </div>
     </div>
     <script>
         setInterval(()=>{
@@ -174,6 +200,50 @@
                 })
             })
         })
+
+        // Create a new XMLHttpRequest object
+var xhr = new XMLHttpRequest();
+
+// API endpoint URL
+var url = 'https://hindu-calender-panchang.p.rapidapi.com/';
+
+// Set the request method to GET
+var method = 'GET';
+
+// Construct the query string
+var queryParams = 'date=09-03-2023&lng=69.6092900&lat=21.6421900&tz=Asia/Kolkata&alt=0.007';
+
+// Concatenate the URL with the query string
+url += '?' + queryParams;
+
+// Open a new GET request
+xhr.open(method, url, true);
+
+// Set request headers
+xhr.setRequestHeader('X-RapidAPI-Key', '8613eeff5cmsh0e3f639f7b39942p12839ejsne7c568761781');
+xhr.setRequestHeader('X-RapidAPI-Host', 'hindu-calender-panchang.p.rapidapi.com');
+
+// Set the callback function to handle the response
+xhr.onreadystatechange = function () {
+  // Check if the request is complete
+  if (xhr.readyState == 4) {
+    // Check if the request was successful (status code 200)
+    if (xhr.status == 200) {
+      // Parse the JSON response
+      var response = JSON.parse(xhr.responseText);
+
+      // Do something with the response data
+      console.log(response);
+    } else {
+      // Handle errors
+      console.error('Error:', xhr.status, xhr.statusText);
+    }
+  }
+};
+
+// Send the request
+xhr.send();
+
     </script>
 </body>
 </html>
