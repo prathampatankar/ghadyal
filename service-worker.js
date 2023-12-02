@@ -4,7 +4,7 @@ let CACHE_VERSION = 'app-v0.00';
 // give all files path you want to work offline
 let CACHE_FILES = [
   './',
-  'ghadyal.html',
+  'index.html',
   'ghadyallogo.svg',
   'cache-polyfill.js',
 ];
