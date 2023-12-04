@@ -17,7 +17,7 @@
             margin: 0;
             padding: 0;
             /* overflow-y: hidden; */
-            background-color: orangered;
+            background-color: white;
         }
         .vel {
             width: auto;
@@ -34,6 +34,7 @@
             margin: 8px;
             margin-bottom: 0;
             flex: 1 0 0;
+            padding: 16px;
         }
         .calender {
             width: auto;
@@ -43,15 +44,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             border-radius: 50px;
             margin: 8px;
             margin-top: 0;
             flex: 1 0 0;
             line-height: .8;
+            padding: 16px;
         }
-        #mahina {
-            font-size: 2.5rem;
+        #mahina, #vaar {
+            font-size: 5vh;
             line-height: 1;
         }
         #tarikh {
@@ -67,6 +69,15 @@
             z-index: 20;
                
         }
+        #event {
+            position: relative;
+            margin-left: auto;
+            background-color: white;
+            color: black;
+            padding: 12px 8px;
+            border-radius: 50px;
+            max-width: 80px; 
+        }
         .container {
             height: 100vh;
             width: 100vw;
@@ -75,13 +86,6 @@
             justify-content: center;
             gap: 8px;
             
-        }
-        .dateinfo {
-            font-size: 2rem;
-            display: flex;
-            gap: 3.5px;
-            justify-content: center;
-            align-items: center;
         }
         #event {
             font: krutidev;
@@ -122,12 +126,10 @@
         </div>
         <!-- <div class="divider"></div> -->
         <div class="calender">
+            <div id="event"></div>
             <div id="mahina"></div>
             <div id="tarikh"></div>
-            <div class="dateinfo">
-                <div id="vaar"></div>
-                <div id="event"></div>
-            </div>
+            <div id="vaar"></div>
         </div>
     </div>
     <script>
@@ -135,9 +137,8 @@
             minSize: 16,
             maxSize: 200,
         });
-        let currentTime;
         setInterval(()=>{
-        currentTime = new Date()
+        const currentTime = new Date()
         let taas = (currentTime.getHours())
         if(taas>12){
             taas = taas - 12;
@@ -191,7 +192,12 @@
         document.getElementById("minutes").innerHTML = minutes;
         document.getElementById("tarikh").innerHTML = tarikh;
         },1000)
-        
+        const today = new Date();
+        if (today.getDate() === 4 && today.getMonth() === 11){
+            console.log('kiki yes')
+            const eventElement = document.getElementById('event');
+            eventElement.textContent =  `(test event on)`;
+        }
         if('serviceWorker' in navigator){
             navigator.serviceWorker
             // give complete path of sw.js file
