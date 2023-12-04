@@ -6,11 +6,17 @@
     <title>घड्याळ</title>
     <link rel="icon" type="image/x-icon" href="ghadyallogo.svg">
     <link rel=manifest href=manifest.json>
+    <script src="ical.js"></script>
+    <script src="fitty.min.js"></script>
     <style>
+        @font-face {
+            font-family: krutidev;
+            src: url('krutidev.ttf');
+        }
         body {
             margin: 0;
             padding: 0;
-            overflow-y: hidden;
+            /* overflow-y: hidden; */
             background-color: orangered;
         }
         .vel {
@@ -21,8 +27,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 1500%;
-            container-name: vel;
+            /* font-size: 1500%; */
             line-height: .8;
             gap: 16px;
             border-radius: 50px;
@@ -45,8 +50,8 @@
             flex: 1 0 0;
             line-height: .8;
         }
-        #mahina, #vaar {
-            font-size: 4rem;
+        #mahina {
+            font-size: 2.5rem;
             line-height: 1;
         }
         #tarikh {
@@ -71,6 +76,16 @@
             gap: 8px;
             
         }
+        .dateinfo {
+            font-size: 2rem;
+            display: flex;
+            gap: 3.5px;
+            justify-content: center;
+            align-items: center;
+        }
+        #event {
+            font: krutidev;
+        }
         @media (orientation: landscape) {
         .container {
             height: 100vh;
@@ -84,14 +99,12 @@
         .vel {
             margin: 8px;
             margin-right: 0;
-            font-size: 1100%;
         }
         .calender {
             margin: 8px;
             margin-left: 0;
         }
         #tarikh {
-            font-size: 1100%;
             line-height: 1;
         }
       }
@@ -111,12 +124,20 @@
         <div class="calender">
             <div id="mahina"></div>
             <div id="tarikh"></div>
-            <div id="vaar"></div>
+            <div class="dateinfo">
+                <div id="vaar"></div>
+                <div id="event"></div>
+            </div>
         </div>
     </div>
     <script>
+        fitty('#taas,#minutes,#tarikh',{
+            minSize: 16,
+            maxSize: 200,
+        });
+        let currentTime;
         setInterval(()=>{
-        let currentTime = new Date()
+        currentTime = new Date()
         let taas = (currentTime.getHours())
         if(taas>12){
             taas = taas - 12;
@@ -169,9 +190,8 @@
         document.getElementById("taas").innerHTML = taas2;
         document.getElementById("minutes").innerHTML = minutes;
         document.getElementById("tarikh").innerHTML = tarikh;
-        console.log(taas, minutes, mahina, tarikh, vaar)
         },1000)
-
+        
         if('serviceWorker' in navigator){
             navigator.serviceWorker
             // give complete path of sw.js file
@@ -181,7 +201,7 @@
 
         let deferredPromt;
         const addBtn = document.querySelector('.installApp')
-        addBtn.style.display = 'none'
+        // addBtn.style.display = 'none'
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -201,49 +221,62 @@
                 })
             })
         })
+        // // Function to fetch and extract event details from the ICS file
+        // async function fetchAndExtractEventDetails(url) {
+        // try {
+        //     // Fetch the ICS file
+        //     const response = await fetch(url);
 
-        // Create a new XMLHttpRequest object
-var xhr = new XMLHttpRequest();
+        //     if (!response.ok) {
+        //     throw new Error(`Failed to fetch ICS file (HTTP ${response.status})`);
+        //     }
 
-// API endpoint URL
-var url = 'https://hindu-calender-panchang.p.rapidapi.com/';
+        //     const icsData = await response.text();
 
-// Set the request method to GET
-var method = 'GET';
+        //     // Extract DTSTART, SUMMARY, and DESCRIPTION using regular expressions
+        //     const dtStartRegex = /DTSTART;VALUE=DATE:([\d]+)/g;
+        //     const summaryRegex = /SUMMARY:([^\n]+)/;
 
-// Construct the query string
-var queryParams = 'date=09-03-2023&lng=69.6092900&lat=21.6421900&tz=Asia/Kolkata&alt=0.007';
+        //     const events = [];
 
-// Concatenate the URL with the query string
-url += '?' + queryParams;
+        //     let match;
+        //     while ((match = dtStartRegex.exec(icsData)) !== null) {
+        //     const dtStart = match[1];
+        //     const summaryMatch = icsData.substring(match.index).match(summaryRegex);
+        //     const summary = summaryMatch ? summaryMatch[1] : 'No Summary';
 
-// Open a new GET request
-xhr.open(method, url, true);
+        //     events.push({ dtStart, summary });
+        //     }
 
-// Set request headers
-xhr.setRequestHeader('X-RapidAPI-Key', '8613eeff5cmsh0e3f639f7b39942p12839ejsne7c568761781');
-xhr.setRequestHeader('X-RapidAPI-Host', 'hindu-calender-panchang.p.rapidapi.com');
+        //     return events;
+        // } catch (error) {
+        //     console.error('Error fetching or extracting event details:', error.message);
+        // }
+        // }
 
-// Set the callback function to handle the response
-xhr.onreadystatechange = function () {
-  // Check if the request is complete
-  if (xhr.readyState == 4) {
-    // Check if the request was successful (status code 200)
-    if (xhr.status == 200) {
-      // Parse the JSON response
-      var response = JSON.parse(xhr.responseText);
+        // // Function to check if the current date matches any event date
+        // function checkEventDate(events) {
+        // const currentDate = new Date();
+        // const currentDateString = currentDate.toISOString().split('T')[0].replace(/-/g, '');
 
-      // Do something with the response data
-      console.log(response);
-    } else {
-      // Handle errors
-      console.error('Error:', xhr.status, xhr.statusText);
-    }
-  }
-};
+        // const matchingEvent = events.find(event => event.dtStart === currentDateString);
 
-// Send the request
-xhr.send();
+        // const eventDiv = document.getElementById('event');
+        // eventDiv.innerHTML = (`(${matchingEvent.summary})`).toLocaleString("hi-u-nu-deva");
+        // if (matchingEvent) {
+        //     console.log(`Event Summary: ${matchingEvent.summary}`);
+        // } else {
+        //     console.log('No matching event for today.');
+        // }
+        // }
+
+        // // Replace 'YOUR_ICS_FILE_URL' with the actual URL of your ICS file
+        // const icsFileUrl = 'test.ics';
+
+        // // Fetch and extract event details, then check for today's event
+        // fetchAndExtractEventDetails(icsFileUrl)
+        // .then(events => checkEventDate(events))
+        // .catch(error => console.error('Error:', error));
 
     </script>
 </body>
