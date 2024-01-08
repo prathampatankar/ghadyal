@@ -6,7 +6,9 @@ let CACHE_FILES = [
   './',
   'index.html',
   'ghadyallogo.svg',
+  'Modak-Regular.ttf',
   'cache-polyfill.js',
+  'manifest.json',
 ];
 
 self.addEventListener('install', function (event) {

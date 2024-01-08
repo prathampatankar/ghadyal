@@ -6,54 +6,53 @@
     <title>घड्याळ</title>
     <link rel="icon" type="image/x-icon" href="ghadyallogo.svg">
     <link rel=manifest href=manifest.json>
-    <script src="ical.js"></script>
     <script src="fitty.min.js"></script>
     <style>
         @font-face {
-            font-family: krutidev;
-            src: url('krutidev.ttf');
+            font-family: modak;
+            src: url('Modak-Regular.ttf');
         }
         body {
             margin: 0;
             padding: 0;
             /* overflow-y: hidden; */
-            background-color: white;
+            height: 100vh !important;
+            background-color: #1C1919;
+            color: rgb(255, 255, 255);
+            font-family: modak;
         }
         .vel {
             width: auto;
+            height: 100%;
             background-color: black;
-            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             /* font-size: 1500%; */
             line-height: .8;
-            gap: 16px;
             border-radius: 50px;
             margin: 8px;
             margin-bottom: 0;
-            flex: 1 0 0;
             padding: 16px;
+            font-size: 1500%;
         }
         .calender {
             width: auto;
+            height: 100%;
             background-color: black;
-            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 12px;
             border-radius: 50px;
             margin: 8px;
             margin-top: 0;
-            flex: 1 0 0;
             line-height: .8;
             padding: 16px;
         }
-        #mahina, #vaar {
-            font-size: 5vh;
+        #mahina, #vaar, #event {
+            font-size: 200%;
             line-height: 1;
         }
         #tarikh {
@@ -64,19 +63,15 @@
             height: 4px;
             background-color: white;
         }
-        .borderup, .borderdown, .borderleft, .borderright{
-            position: fixed;
-            z-index: 20;
-               
+        .bottomsec {
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            align-items: center;
         }
         #event {
-            position: relative;
-            margin-left: auto;
-            background-color: white;
-            color: black;
-            padding: 12px 8px;
-            border-radius: 50px;
-            max-width: 80px; 
+            text-align: center;
+            width: fit-content;
         }
         .container {
             height: 100vh;
@@ -87,9 +82,6 @@
             gap: 8px;
             
         }
-        #event {
-            font: krutidev;
-        }
         @media (orientation: landscape) {
         .container {
             height: 100vh;
@@ -97,18 +89,43 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: c;
             gap: 8px;
         }
         .vel {
+            width: 100%;
+            height: auto;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: .8;
+            border-radius: 50px;
             margin: 8px;
-            margin-right: 0;
+            margin-bottom: 0;
+            padding: 16px;
+            font-size: 1300%;
         }
         .calender {
+            width: 100%;
+            height: auto;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50px;
             margin: 8px;
-            margin-left: 0;
+            margin-top: 0;
+            line-height: .8;
+            padding: 16px;
+        }
+        #mahina, #vaar, #event {
+            font-size: 200%;
+            line-height: 1;
         }
         #tarikh {
+            font-size: 1300%;
             line-height: 1;
         }
       }
@@ -126,17 +143,17 @@
         </div>
         <!-- <div class="divider"></div> -->
         <div class="calender">
-            <div id="event"></div>
             <div id="mahina"></div>
             <div id="tarikh"></div>
-            <div id="vaar"></div>
+            <div class="bottomsec">
+                <div id="vaar"></div>
+                <div id="line">|</div>
+                <div id="event"></div>
+            </div>
         </div>
     </div>
     <script>
-        fitty('#taas,#minutes,#tarikh',{
-            minSize: 16,
-            maxSize: 200,
-        });
+        
         setInterval(()=>{
         const currentTime = new Date()
         let taas = (currentTime.getHours())
@@ -193,11 +210,106 @@
         document.getElementById("tarikh").innerHTML = tarikh;
         },1000)
         const today = new Date();
-        if (today.getDate() === 4 && today.getMonth() === 11){
-            console.log('kiki yes')
-            const eventElement = document.getElementById('event');
-            eventElement.textContent =  `(test event on)`;
+        const currentDate = (today.getFullYear()) + "-" + (today.getMonth() + 1) + "-" + (today.getDate());
+        //year-month-date
+        //january
+        if (currentDate == "2024-1-26") {
+        document.getElementById("event").textContent = "गणराज्य दिन";
         }
+        //february
+        if (currentDate == "2024-2-19") {
+        document.getElementById("event").textContent = "महाराजांची जयंती";
+        }
+        //march
+        if (currentDate == "2024-3-8") {
+        document.getElementById("event").textContent = "महाशिवरात्री";
+        }
+        if (currentDate == "2024-3-24") {
+        document.getElementById("event").textContent = "होळी";
+        }
+        if (currentDate == "2024-3-25") {
+        document.getElementById("event").textContent = "धूलिवंदण";
+        }
+        if (currentDate == "2024-3-29") {
+        document.getElementById("event").textContent = "गुड फ्रायडे";
+        }
+        //april
+        if (currentDate == "2024-4-11") {
+        document.getElementById("event").textContent = "रमजान ईद";
+        }
+        if (currentDate == "2024-4-14") {
+        document.getElementById("event").textContent = "आंबेडकर जयंती";
+        }
+        if (currentDate == "2024-4-17") {
+        document.getElementById("event").textContent = "श्रीराम नवमी";
+        }
+        //may
+        if (currentDate == "2024-5-1") {
+        document.getElementById("event").textContent = "महाराष्ट्र दिन";
+        }
+        if (currentDate == "2024-5-23") {
+        document.getElementById("event").textContent = "बुद्ध पोर्णिमा";
+        }
+        //june
+        if (currentDate == "2024-6-17") {
+        document.getElementById("event").textContent = "बकरी ईद";
+        }
+        //july
+        if (currentDate == "2024-7-17") {
+        document.getElementById("event").textContent = "आषाढी एकादशी";
+        }
+        if (currentDate == "2024-7-21") {
+        document.getElementById("event").textContent = "गुरुपोर्णिमा";
+        }
+        //august
+        if (currentDate == "2024-8-15") {
+        document.getElementById("event").textContent = "स्वातंत्र दिन";
+        }
+        if (currentDate == "2024-8-19") {
+        document.getElementById("event").textContent = "नारळीपोर्णिमा, रक्षाबंधन";
+        }
+        //september
+        if (currentDate == "2024-9-7") {
+        document.getElementById("event").textContent = "गणेश चतुर्थी";
+        }
+        if (currentDate == "2024-9-16") {
+        document.getElementById("event").textContent = "ईद-ए-मिलाद";
+        }
+        if (currentDate == "2024-9-16") {
+        document.getElementById("event").textContent = "ईद-ए-मिलाद";
+        }
+        //october
+        if (currentDate == "2024-10-2") {
+        document.getElementById("event").textContent = "गांधी जयंती";
+        }
+        if (currentDate == "2024-10-12") {
+        document.getElementById("event").textContent = "दसरा";
+        }
+        //november
+        if (currentDate == "2024-11-1") {
+        document.getElementById("event").textContent = "लक्ष्मीपूजन";
+        }
+        if (currentDate == "2024-11-2") {
+        document.getElementById("event").textContent = "दिवाळी";
+        }
+        if (currentDate == "2024-11-3") {
+        document.getElementById("event").textContent = "भाऊबीज";
+        }
+        if (currentDate == "2024-11-15") {
+        document.getElementById("event").textContent = "गुरूंनानक जयंती";
+        }
+        //december
+        if (currentDate == "2024-12-25") {
+        document.getElementById("event").textContent = "नाताळ";
+        }
+        const eventDiv = document.getElementById("event");
+        const lineDiv = document.getElementById("line");
+
+        if (eventDiv && eventDiv.textContent.trim() === "") {
+        lineDiv.style.display = "none";
+        }
+
+
         if('serviceWorker' in navigator){
             navigator.serviceWorker
             // give complete path of sw.js file
@@ -227,63 +339,7 @@
                 })
             })
         })
-        // // Function to fetch and extract event details from the ICS file
-        // async function fetchAndExtractEventDetails(url) {
-        // try {
-        //     // Fetch the ICS file
-        //     const response = await fetch(url);
-
-        //     if (!response.ok) {
-        //     throw new Error(`Failed to fetch ICS file (HTTP ${response.status})`);
-        //     }
-
-        //     const icsData = await response.text();
-
-        //     // Extract DTSTART, SUMMARY, and DESCRIPTION using regular expressions
-        //     const dtStartRegex = /DTSTART;VALUE=DATE:([\d]+)/g;
-        //     const summaryRegex = /SUMMARY:([^\n]+)/;
-
-        //     const events = [];
-
-        //     let match;
-        //     while ((match = dtStartRegex.exec(icsData)) !== null) {
-        //     const dtStart = match[1];
-        //     const summaryMatch = icsData.substring(match.index).match(summaryRegex);
-        //     const summary = summaryMatch ? summaryMatch[1] : 'No Summary';
-
-        //     events.push({ dtStart, summary });
-        //     }
-
-        //     return events;
-        // } catch (error) {
-        //     console.error('Error fetching or extracting event details:', error.message);
-        // }
-        // }
-
-        // // Function to check if the current date matches any event date
-        // function checkEventDate(events) {
-        // const currentDate = new Date();
-        // const currentDateString = currentDate.toISOString().split('T')[0].replace(/-/g, '');
-
-        // const matchingEvent = events.find(event => event.dtStart === currentDateString);
-
-        // const eventDiv = document.getElementById('event');
-        // eventDiv.innerHTML = (`(${matchingEvent.summary})`).toLocaleString("hi-u-nu-deva");
-        // if (matchingEvent) {
-        //     console.log(`Event Summary: ${matchingEvent.summary}`);
-        // } else {
-        //     console.log('No matching event for today.');
-        // }
-        // }
-
-        // // Replace 'YOUR_ICS_FILE_URL' with the actual URL of your ICS file
-        // const icsFileUrl = 'test.ics';
-
-        // // Fetch and extract event details, then check for today's event
-        // fetchAndExtractEventDetails(icsFileUrl)
-        // .then(events => checkEventDate(events))
-        // .catch(error => console.error('Error:', error));
-
+        
     </script>
 </body>
 </html>
